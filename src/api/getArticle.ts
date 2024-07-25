@@ -19,5 +19,7 @@ export async function getArticle(id: string): Promise<IArticle> {
     if (e.response?.status === 404) {
       throw new Error('Artigo não encontrado.')
     }
+
+    throw new Error('Erro  do axios')
   }
 }
