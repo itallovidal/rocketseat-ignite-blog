@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        hoverShadow: '10px 10px 10px rgb(255,255,255)',
+      },
       colors: {
         'gray-850': 'rgb(27,39,61)',
         border: 'hsl(var(--border))',
@@ -67,8 +70,13 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        showing: {
+          from: { transform: 'translateY(20px)', opacity: 0 },
+          to: { opacity: 1, transform: 'translateY(0px)' },
+        },
       },
       animation: {
+        show: 'showing 500ms forwards',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },

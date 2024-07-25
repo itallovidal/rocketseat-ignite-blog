@@ -6,7 +6,7 @@ interface ISocialLinkProps {
   icon: ReactNode
 }
 
-export function SocialLink({ children, icon }: ISocialLinkProps) {
+export function IconSpan({ children, icon }: ISocialLinkProps) {
   return (
     <div className={'flex gap-2'}>
       {icon}

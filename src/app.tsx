@@ -1,8 +1,14 @@
-import { AppLayout } from '@/components/app-layout.tsx'
-import { Home } from '@/pages/home.tsx'
-import { Article } from '@/pages/article.tsx'
 import { AppRoutes } from '@/pages/routes.tsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Toaster } from 'sonner'
+
+const queryClient = new QueryClient()
 
 export function App() {
-  return <AppRoutes />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Toaster />
+      <AppRoutes />
+    </QueryClientProvider>
+  )
 }
