@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input.tsx'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getIssues } from '@/api/getIssues.ts'
-import { Control, Controller, FieldValues, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button.tsx'
 
 const searchSchema = z.object({
-  articleName: z
+  query: z
     .string({
       required_error: 'Para pesquisar escreva pelo menos 3 letras.',
     })
@@ -18,7 +18,7 @@ const searchSchema = z.object({
     }),
 })
 
-interface ISearchSchema extends z.infer<typeof searchSchema> {}
+type ISearchSchema = z.infer<typeof searchSchema>
 
 export function SearchBar() {
   const { data } = useQuery({
@@ -34,7 +34,7 @@ export function SearchBar() {
   })
 
   const {
-    control,
+    register,
     handleSubmit,
     reset,
     formState: { errors },
@@ -53,10 +53,10 @@ export function SearchBar() {
     reset()
   }
 
-  function handleFilter({ articleName }: ISearchSchema) {
+  function handleFilter({ query }: ISearchSchema) {
     if (data?.items) {
       const articles = data.items.filter((article) => {
-        return article.title.toLowerCase().includes(articleName)
+        return article.title.toLowerCase().includes(query)
       })
 
       if (articles.length === 0) {
@@ -89,21 +89,27 @@ export function SearchBar() {
         onSubmit={handleSubmit(handleFilter)}
         className={'flex flex-col gap-4'}
       >
-        <Controller
-          control={control as unknown as Control<FieldValues>}
-          render={({ field: { name, value, onChange, onBlur } }) => {
-            return (
-              <Input
-                placeholder={'Buscar conteúdo'}
-                className={' bg-gray-850 border-gray-800'}
-                name={name}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )
-          }}
-          name={}
+        {/* <Controller */}
+        {/*  control={control} */}
+        {/*  render={({ field: { name, value, onChange, onBlur } }) => { */}
+        {/*    return ( */}
+        {/*      <Input */}
+        {/*        placeholder={'Buscar conteúdo'} */}
+        {/*        className={' bg-gray-850 border-gray-800'} */}
+        {/*        name={name} */}
+        {/*        value={value} */}
+        {/*        onChange={onChange} */}
+        {/*        onBlur={onBlur} */}
+        {/*      /> */}
+        {/*    ) */}
+        {/*  }} */}
+        {/*  name={'query'} */}
+        {/* /> */}
+
+        <Input
+          placeholder={'Buscar conteúdo'}
+          className={' bg-gray-850 border-gray-800'}
+          {...register('query')}
         />
 
         {unfilteredArticles.filtered && (
@@ -114,11 +120,11 @@ export function SearchBar() {
 
         <span
           className={
-            (errors.articleName ? 'opacity-1' : 'opacity-0') +
+            (errors.query ? 'opacity-1' : 'opacity-0') +
             ' text-rose-500 transition'
           }
         >
-          {errors.articleName?.message || 'Sem erros'}
+          {errors.query?.message || 'Sem erros'}
         </span>
       </form>
     </div>
