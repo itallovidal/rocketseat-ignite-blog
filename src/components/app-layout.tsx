@@ -1,4 +1,5 @@
 import backdrop from '../assets/backdrop.png'
+import { Outlet } from 'react-router-dom'
 
 export function AppLayout({ children }) {
   return (
@@ -13,7 +14,7 @@ export function AppLayout({ children }) {
       <main
         className={'text-white m-auto max-w-grid-width -mt-[150px] relative'}
       >
-        {children}
+        <Outlet />
       </main>
     </div>
   )

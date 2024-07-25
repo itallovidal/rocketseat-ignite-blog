@@ -8,7 +8,11 @@ export function Article() {
   return (
     <>
       <Header />
-      <div className={'text-justify space-y-6 h-full mt-8 githubArticle pb-[100px]'}>
+      <div
+        className={
+          'text-justify space-y-6 h-full mt-8 githubArticle pb-[100px]'
+        }
+      >
         <Markdown remarkPlugins={[remarkGfm]}>{text}</Markdown>
       </div>
     </>
