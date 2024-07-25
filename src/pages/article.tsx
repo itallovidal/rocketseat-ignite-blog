@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 export function Article() {
   const [params] = useSearchParams()
   const navigate = useNavigate()
-  const id = params.get('id')
+  const id = params.get('id') ?? ''
   const { data, isLoading, isError } = useQuery({
     queryKey: ['article', id],
     queryFn: () => getArticle(id),

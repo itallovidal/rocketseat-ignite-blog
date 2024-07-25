@@ -1,12 +1,11 @@
-import { Github, GithubIcon } from 'lucide-react'
 import { ReactNode } from 'react'
 
-interface ISocialLinkProps {
-  children: string
+interface IIConSpanProps {
+  children: string | string[]
   icon: ReactNode
 }
 
-export function IconSpan({ children, icon }: ISocialLinkProps) {
+export function IconSpan({ children, icon }: IIConSpanProps) {
   return (
     <div className={'flex gap-2'}>
       {icon}
