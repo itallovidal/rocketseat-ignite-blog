@@ -1,5 +1,12 @@
-import { Button } from '@/components/ui/button.tsx'
+import { AppLayout } from '@/components/app-layout.tsx'
+import { Home } from '@/pages/home.tsx'
+import { Article } from '@/pages/article.tsx'
 
 export function App() {
-  return <Button className={'bg-yellow-400'}>Clique em mim!</Button>
+  return (
+    <AppLayout>
+      {/* <Home /> */}
+      <Article />
+    </AppLayout>
+  )
 }

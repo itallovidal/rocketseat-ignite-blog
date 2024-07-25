@@ -66,4 +66,24 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .githubArticle h3{
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .githubArticle h2{
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .githubArticle li{
+    margin-left: 16px;
+    list-style: initial;
+  }
+
+  .githubArticle p:has(img) {
+    border-radius: 16px;
+    overflow: hidden;
+  }
 }
