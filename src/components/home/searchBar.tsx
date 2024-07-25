@@ -1,9 +1,7 @@
-// noinspection TypeScriptValidateTypes
-
 import { Input } from '@/components/ui/input.tsx'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getIssues } from '@/api/getIssues.ts'
-import { useForm } from 'react-hook-form'
+import { Control, Controller, FieldValues, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
@@ -36,11 +34,11 @@ export function SearchBar() {
   })
 
   const {
-    register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<ISearchSchema>({
     resolver: zodResolver(searchSchema),
   })
 
@@ -91,12 +89,23 @@ export function SearchBar() {
         onSubmit={handleSubmit(handleFilter)}
         className={'flex flex-col gap-4'}
       >
-        <Input
-          defaultValue={''}
-          placeholder={'Buscar conteúdo'}
-          className={' bg-gray-850 border-gray-800'}
-          {...register('articleName')}
+        <Controller
+          control={control as unknown as Control<FieldValues>}
+          render={({ field: { name, value, onChange, onBlur } }) => {
+            return (
+              <Input
+                placeholder={'Buscar conteúdo'}
+                className={' bg-gray-850 border-gray-800'}
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )
+          }}
+          name={}
         />
+
         {unfilteredArticles.filtered && (
           <Button variant={'ghost'} onClick={() => clearFilter()}>
             Limpar Filtro

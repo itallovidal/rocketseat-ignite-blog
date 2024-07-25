@@ -1,7 +1,7 @@
 import { api } from '@/lib/axios.config.ts'
 import { IArticle } from '@/api/getIssues.ts'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 
 export async function getArticle(id: string): Promise<IArticle> {
   try {
@@ -10,14 +10,14 @@ export async function getArticle(id: string): Promise<IArticle> {
     )
 
     return response.data as IArticle
-  } catch (e: AxiosError) {
+  } catch (e: unknown) {
     console.log('erro!')
     console.log(e)
+
+    if (!isAxiosError(e)) throw new Error('Erro interno')
 
     if (e.response?.status === 404) {
       throw new Error('Artigo não encontrado.')
     }
-
-    throw new Error('Erro interno')
   }
 }
